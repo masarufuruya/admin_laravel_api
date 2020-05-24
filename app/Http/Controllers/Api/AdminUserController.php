@@ -28,10 +28,9 @@ class AdminUserController extends Controller
     public function store(Request $request)
     {
         $admin_user = new AdminUser;
-        $admin_user->name = $request->name;
-        $admin_user->email = $request->email;
-        $admin_user->password = Hash::make($request->password);
-        $admin_user->save();
+        $admin_user->fill(array_merge(
+            $request->all(), ['password' => Hash::make($request->password)]
+        ))->save();
         return $admin_user;
     }
 
