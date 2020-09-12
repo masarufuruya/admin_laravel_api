@@ -1,18 +1,19 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use Illuminate\Support\Facades\Hash;
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class MyTest extends TestCase
 {
     /**
-     * A basic test example.
+     * A basic feature test example.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function testExample()
     {
         $user = new \App\AdminUser;
         $user->name = "山田";
@@ -20,7 +21,7 @@ class ExampleTest extends TestCase
         $user->password = \Hash::make('password');
         $user->save();
 
-        $readUser = \App\User::where('name', '山田')->first();
+        $readUser = \App\AdminUser::where('name', '山田')->first();
         $this->assertNotNull($readUser);            // データが取得できたかテスト
         $this->assertTrue(\Hash::check('password', $readUser->password)); // パスワードが一致しているかテスト
 
