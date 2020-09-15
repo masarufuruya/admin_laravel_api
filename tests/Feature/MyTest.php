@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class MyTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -15,16 +16,8 @@ class MyTest extends TestCase
      */
     public function testExample()
     {
-        $user = new \App\AdminUser;
-        $user->name = "山田";
-        $user->email = "yamada@test.com";
-        $user->password = \Hash::make('password');
-        $user->save();
-
-        $readUser = \App\AdminUser::where('name', '山田')->first();
-        $this->assertNotNull($readUser);            // データが取得できたかテスト
-        $this->assertTrue(\Hash::check('password', $readUser->password)); // パスワードが一致しているかテスト
-
-        \App\AdminUser::where('email', 'yamada@test.com')->delete(); // テストデータの削除
+        factory(\App\AdminUser::class)->create();
+        $adminUser = \App\AdminUser::first();
+        $this->assertNotNull($adminUser);
     }
 }
