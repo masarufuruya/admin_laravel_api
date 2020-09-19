@@ -12,12 +12,12 @@ use Tests\TestCase;
 class AdminUserTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     private $adminUser;
 
     public function testIndex()
     {
-        $this->WithoutMiddleware();
         $adminUser1 = factory(AdminUser::class)->create();
         $adminUser2 = factory(AdminUser::class)->create();
 
